@@ -3,64 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Logbook | Luxury EV Imports</title>
+    <title>Executive Internship Logbook | EV Importers</title>
     <style>
-        /* --- Luxury Cyber-Purple Variables --- */
+        /* --- Luxury Minimalist Theme Variables --- */
         :root {
-            --bg-deep: #030305;          /* Jet Obsidian Black */
-            --bg-card: #09090d;          /* Velvet Dark Card */
-            --purple-glow: #a855f7;      /* Vivid Electric Purple Accent */
-            --purple-dim: #4c1d95;       /* Deep Ambient Purple Shadow */
-            --text-white: #f8fafc;       /* Ultra-Clean Metallic White */
-            --text-gray: #64748b;        /* Subdued Tech Label Gray */
-            --border-glow: #1e1b4b;      /* Micro-fine Dark Purple Border */
+            --bg-primary: #0a0a0a;       /* Deep Obsidian Black */
+            --bg-secondary: #141414;     /* Premium Card Black */
+            --accent-glow: #00ffcc;      /* Electric EV Cyan / Neon Accent */
+            --text-main: #f5f5f7;        /* Off-White */
+            --text-muted: #8e8e93;       /* Metallic Gray */
+            --border-color: #222222;     /* Subtle Split Lines */
         }
 
-        /* --- Reset & Base Layout --- */
+        /* --- Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-white);
-            overflow-x: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
             line-height: 1.6;
-            min-height: 100vh;
+            padding-bottom: 60px;
         }
 
-        /* --- Video-Style Ambient Fluid Lights --- */
-        .ambient-glow {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(76, 29, 149, 0.03) 50%, rgba(0,0,0,0) 70%);
-            top: -250px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1;
-            pointer-events: none;
-            filter: blur(40px);
-            animation: pulseGlow 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-        }
-
-        /* --- Cinematic Navigation (Glassmorphism) --- */
+        /* --- Header & Navigation --- */
         header {
             position: sticky;
             top: 0;
-            background: rgba(3, 3, 5, 0.7);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
         }
 
         .nav-container {
@@ -69,421 +46,323 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 30px;
+            padding: 20px;
         }
 
         .logo {
             font-weight: 800;
             font-size: 1.2rem;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            color: var(--text-main);
         }
 
         .logo span {
-            color: var(--purple-glow);
-            text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
-        }
-
-        nav {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 4px;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--accent-glow);
         }
 
         nav a {
-            color: var(--text-gray);
+            color: var(--text-muted);
             text-decoration: none;
-            padding: 8px 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
             letter-spacing: 1px;
-            text-transform: uppercase;
-            border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: color 0.3s ease;
             cursor: pointer;
         }
 
-        nav a:hover {
-            color: var(--text-white);
+        nav a:hover, nav a.active {
+            color: var(--accent-glow);
         }
 
-        nav a.active {
-            color: var(--text-white);
-            background: rgba(168, 85, 247, 0.15);
-            box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.2);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
-
-        /* --- App container --- */
+        /* --- Main Layout --- */
         .container {
-            max-width: 1000px;
-            margin: 80px auto;
-            padding: 0 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* --- Exact Video Layout Morphing Animations --- */
+        /* Page Section View Controller */
         .page-section {
             display: none;
-            opacity: 0;
         }
 
         .page-section.active-section {
             display: block;
-            animation: videoSlideIn 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            animation: fadeIn 0.5s ease-forward;
         }
 
-        @keyframes videoSlideIn {
-            0% { 
-                opacity: 0; 
-                transform: translateY(40px) scale(0.98); 
-                filter: blur(10px);
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-                filter: blur(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Typography Elements --- */
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
+        /* --- Luxury Card Styling --- */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: border 0.3s ease;
         }
 
-        .section-header h1 {
-            font-size: 3rem;
+        .card:hover {
+            border-color: #333;
+        }
+
+        h2 {
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -1.5px;
-            margin-bottom: 15px;
-            background: linear-gradient(to bottom, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
-        .section-header p {
-            color: var(--purple-glow);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-glow);
         }
 
-        /* --- Premium Cards --- */
-        .luxury-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 24px;
-            padding: 50px;
-            margin-bottom: 35px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .luxury-card:hover {
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 40px 80px rgba(76, 29, 149, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* --- Profile Structural Layout --- */
-        .profile-layout {
+        /* --- Profile Grid --- */
+        .profile-grid {
             display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 50px;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
             align-items: center;
         }
 
-        .avatar-frame {
+        .profile-img-placeholder {
             width: 220px;
             height: 220px;
-            border-radius: 20px;
-            background: linear-gradient(145deg, #0e0e14, #040406);
-            border: 1px solid var(--border-glow);
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-gray);
+            color: var(--text-muted);
+            font-size: 0.9rem;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
         }
 
-        .spec-table {
+        .info-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .spec-table td {
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-size: 0.95rem;
+        .info-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .spec-table td:first-child {
-            color: var(--text-gray);
-            font-weight: 500;
-            width: 35%;
+        .info-table td:first-child {
+            font-weight: 600;
+            color: var(--text-muted);
+            width: 30%;
         }
 
-        /* --- Premium Timeline Node Elements --- */
-        .log-timeline-wrapper {
+        /* --- Logbook Timeline --- */
+        .log-entry {
+            border-left: 2px solid var(--border-color);
+            padding-left: 25px;
             position: relative;
-            padding-left: 40px;
+            margin-bottom: 40px;
         }
 
-        .log-timeline-wrapper::before {
+        .log-entry::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 10px;
-            bottom: 10px;
-            width: 1px;
-            background: linear-gradient(to bottom, var(--purple-glow), transparent);
-        }
-
-        .log-node {
-            position: relative;
-            margin-bottom: 50px;
-        }
-
-        .log-node::after {
-            content: '';
-            position: absolute;
-            left: -44px;
-            top: 8px;
-            width: 8px;
-            height: 8px;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background-color: var(--purple-glow);
-            box-shadow: 0 0 15px var(--purple-glow);
+            background-color: var(--accent-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .log-meta {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--purple-glow);
+        .log-date {
+            font-size: 0.85rem;
+            color: var(--accent-glow);
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .log-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
-        .log-desc {
-            color: var(--text-gray);
-            font-size: 1rem;
+        .log-content {
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
-        /* --- Grid Galleries --- */
-        .grid-gallery {
+        /* --- Gallery Layout --- */
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 20px;
         }
 
-        .gallery-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
+        .gallery-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .gallery-box:hover {
-            transform: translateY(-5px);
-            border-color: rgba(168, 85, 247, 0.3);
-        }
-
-        .img-fallback {
-            height: 240px;
-            background: linear-gradient(180deg, #0e0e14 0%, #030305 100%);
+        .gallery-img-placeholder {
+            height: 200px;
+            background-color: #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-gray);
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
-        .caption {
-            padding: 25px;
+            color: var(--text-muted);
             font-size: 0.9rem;
-            color: var(--text-gray);
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        /* --- Responsive Structure Adjustment --- */
-        @media (max-width: 850px) {
-            .profile-layout { grid-template-columns: 1fr; justify-items: center; gap: 40px; }
-            .nav-container { flex-direction: column; gap: 20px; }
-            .section-header h1 { font-size: 2.2rem; }
-            .luxury-card { padding: 30px; }
+        .gallery-desc {
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-grid { grid-template-columns: 1fr; justify-items: center; }
+            nav { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+            nav a { margin: 5px 10px; }
+            .nav-container { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Floating Light Ring -->
-    <div class="ambient-glow"></div>
-
-    <!-- Top Premium Navigation Deck -->
     <header>
         <div class="nav-container">
-            <div class="logo">E-VOLT<span>LOG</span></div>
+            <div class="logo">DRIVE<span>LOG</span></div>
             <nav>
-                <a onclick="morphToTab('profile')" id="btn-profile" class="active">Profile</a>
-                <a onclick="morphToTab('corporate')" id="btn-corporate">Corporate</a>
-                <a onclick="morphToTab('ledger')" id="btn-ledger">Activity Ledger</a>
-                <a onclick="morphToTab('showroom')" id="btn-showroom">Showroom</a>
+                <a onclick="switchPage('profile')" id="nav-profile" class="active">Student Profile</a>
+                <a onclick="switchPage('company')" id="nav-company">Company</a>
+                <a onclick="switchPage('logs')" id="nav-logs">Weekly Logs</a>
+                <a onclick="switchPage('gallery')" id="nav-gallery">Gallery</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- ================= STUDENT PROFILE VIEW ================= -->
-        <section id="tab-profile" class="page-section active-section">
-            <div class="section-header">
-                <p>Identity Registry</p>
-                <h1>Executive Profile</h1>
-            </div>
-            <div class="luxury-card">
-                <div class="profile-layout">
-                    <div class="avatar-frame">Secure ID Image</div>
-                    <div style="width: 100%;">
-                        <table class="spec-table">
-                            <tr><td>Candidate Name</td><td>[Your Name Blueprint]</td></tr>
-                            <tr><td>Assigned ID</td><td>#EV-2026-8891</td></tr>
-                            <tr><td>Specialization</td><td>High-Performance E-Mobility Engineering</td></tr>
-                            <tr><td>Academic Institution</td><td>[Your University Facility]</td></tr>
-                            <tr><td>Placement Cycle</td><td>Full-Time Internship Block 2026</td></tr>
+        <!-- ================= STUDENT PROFILE PAGE ================= -->
+        <section id="page-profile" class="page-section active-section">
+            <div class="card">
+                <h2>Intern Information</h2>
+                <div class="profile-grid">
+                    <!-- Replace text inside div with an <img src="your-pic.jpg" /> later if you want -->
+                    <div class="profile-img-placeholder">Photo Placeholder</div>
+                    <div>
+                        <table class="info-table">
+                            <tr><td>Name</td><td>[Your Full Name]</td></tr>
+                            <tr><td>Student ID</td><td>[Your ID Number]</td></tr>
+                            <tr><td>Course</td><td>Bachelor of Business / Engineering (EV Systems)</td></tr>
+                            <tr><td>Institution</td><td>[Your University Name]</td></tr>
+                            <tr><td>Duration</td><td>Month 2026 - Month 2026</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= COMPANY PROFILE VIEW ================= -->
-        <section id="tab-corporate" class="page-section">
-            <div class="section-header">
-                <p>Infrastructure Ecosystem</p>
-                <h1>Corporate Entity</h1>
-            </div>
-            <div class="luxury-card">
-                <table class="spec-table" style="margin-bottom: 25px;">
-                    <tr><td>Importer Class</td><td>High-End Electric Vehicle Logistics Pipeline</td></tr>
-                    <tr><td>Fleet Orientation</td><td>Performance BEVs & Premium EV Architecture</td></tr>
-                    <tr><td>Supervisor Director</td><td>[Lead Placement Supervisor Name]</td></tr>
+        <!-- ================= COMPANY PROFILE PAGE ================= -->
+        <section id="page-company" class="page-section">
+            <div class="card">
+                <h2>The Corporate Entity</h2>
+                <table class="info-table" style="margin-bottom: 25px;">
+                    <tr><td>Company Name</td><td>[EV Importer Corporate Name]</td></tr>
+                    <tr><td>Industry</td><td>Next-Gen Electric Vehicle Importation & Logistics</td></tr>
+                    <tr><td>Department</td><td>[e.g., Marketing, Technical, Procurement]</td></tr>
+                    <tr><td>Supervisor</td><td>[Supervisor Name / Title]</td></tr>
                 </table>
-                <p style="color: var(--text-gray); font-size: 1rem;">
-                    Operating within international vehicle import networks to analyze regulatory customs frameworks, high-voltage battery compliance protocols, and smart telematics adaptations for top-tier EV markets.
+                <p style="color: var(--text-muted);">
+                    [Enter a brief 2-3 sentence overview of the company here. e.g., "A premier importer specializing in bringing ultra-luxury, high-performance electric vehicles to domestic markets, bridging sustainable technology with elite automotive design."]
                 </p>
             </div>
         </section>
 
-        <!-- ================= WEEKLY LOGS VIEW ================= -->
-        <section id="tab-ledger" class="page-section">
-            <div class="section-header">
-                <p>Activity Milestones</p>
-                <h1>Logbook Ledger</h1>
-            </div>
-            <div class="luxury-card">
-                <div class="log-timeline-wrapper">
-
-                    <!-- Week 2 Block -->
-                    <div class="log-node">
-                        <div class="log-meta">Milestone Cycle 02</div>
-                        <div class="log-title">Grid Synchronization & Intelligent Diagnostic Arrays</div>
-                        <div class="log-desc">
-                            Analyzed charging profile limits of imported European sports performance models. Monitored diagnostic adaptation sequences across regional infrastructure arrays.
-                        </div>
+        <!-- ================= WEEKLY LOGS PAGE ================= -->
+        <section id="page-logs" class="page-section">
+            <div class="card">
+                <h2>Chronological Record of Activities</h2>
+                
+                <!-- Week 2 -->
+                <div class="log-entry">
+                    <div class="log-date">Week 2</div>
+                    <div class="log-title">EV Compliance Inspections & Diagnostic Setup</div>
+                    <div class="log-content">
+                        Assisted the technical customs team with analyzing luxury EV configurations for regulatory compliance. Shadowed battery diagnostics workflows on newly imported performance sedans.
                     </div>
-
-                    <!-- Week 1 Block -->
-                    <div class="log-node">
-                        <div class="log-meta">Milestone Cycle 01</div>
-                        <div class="log-title">Onboarding Protocols & High-Voltage System Access</div>
-                        <div class="log-desc">
-                            Completed system safety orientation courses for traction battery configurations. Initialized terminal accounts across inventory tracking management platforms.
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Week 1 -->
+                <div class="log-entry">
+                    <div class="log-date">Week 1</div>
+                    <div class="log-title">Orientation & Inventory Management Systems</div>
+                    <div class="log-content">
+                        Completed onboarding protocols and gained authorization for the vehicle logging database. Walked through premium logistics intake procedures for incoming European shipments.
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- ================= GALLERY VIEW ================= -->
-        <section id="tab-showroom" class="page-section">
-            <div class="section-header">
-                <p>Visual Log Documentation</p>
-                <h1>Showroom Matrix</h1>
-            </div>
-            <div class="grid-gallery">
-                
-                <div class="gallery-box">
-                    <div class="img-fallback">[Telemetry Asset 01]</div>
-                    <div class="caption">Reviewing digital cockpit array instrument calibrations.</div>
-                </div>
+        <!-- ================= GALLERY PAGE ================= -->
+        <section id="page-gallery" class="page-section">
+            <div class="card">
+                <h2>Visual Log & Assets</h2>
+                <div class="gallery-grid">
+                    
+                    <div class="gallery-item">
+                        <div class="gallery-img-placeholder">[Showroom Vehicle Setup]</div>
+                        <div class="gallery-desc">Analyzing dashboard telemetry configurations on an arriving luxury SUV.</div>
+                    </div>
 
-                <div class="gallery-box">
-                    <div class="img-fallback">[Infrastructure Asset 02]</div>
-                    <div class="caption">High-capacity rapid power bay diagnostics array.</div>
-                </div>
+                    <div class="gallery-item">
+                        <div class="gallery-img-placeholder">[Charging Infrastructure]</div>
+                        <div class="gallery-desc">Inspecting high-voltage DC fast-charging unit testing at the facility.</div>
+                    </div>
 
+                </div>
             </div>
         </section>
 
     </div>
 
-    <!-- Advanced Morphing Interface Controller -->
     <script>
-        function morphToTab(tabKey) {
-            const activeSection = document.querySelector('.page-section.active-section');
-            const targetSection = document.getElementById(`tab-${tabKey}`);
+        // --- Single Page Navigation Script ---
+        function switchPage(pageId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active-section'));
+
+            // Deactivate all nav links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Activate chosen section & link
+            document.getElementById(`page-${pageId}`).classList.add('active-section');
+            document.getElementById(`nav-${pageId}`).classList.add('active');
             
-            if (activeSection === targetSection) return;
-
-            // Step 1: Smoothly collapse active section out
-            if (activeSection) {
-                activeSection.style.animation = 'none';
-                // Trigger a momentary exit phase
-                activeSection.style.opacity = '0';
-                activeSection.style.transform = 'translateY(-20px)';
-                activeSection.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                
-                setTimeout(() => {
-                    activeSection.classList.remove('active-section');
-                    // Reset inline styles
-                    activeSection.style.transition = '';
-                    activeSection.style.transform = '';
-                    
-                    // Step 2: Swap and drop-in the new layout cleanly
-                    executeInboundMorph(targetSection, tabKey);
-                }, 250);
-            } else {
-                executeInboundMorph(targetSection, tabKey);
-            }
-        }
-
-        function executeInboundMorph(targetSection, tabKey) {
-            const links = document.querySelectorAll('nav a');
-            links.forEach(l => l.classList.remove('active'));
-
-            targetSection.classList.add('active-section');
-            document.getElementById(`btn-${tabKey}`).add('active');
-            document.getElementById(`btn-${tabKey}`).classList.add('active');
-
+            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
