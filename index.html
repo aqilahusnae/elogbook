@@ -7,13 +7,13 @@
     <style>
         /* --- Luxury Cyber-Purple Variables --- */
         :root {
-            --bg-deep: #050507;          /* Premium Obsidian Shadow */
-            --bg-card: #0c0c10;          /* Sleek Dashboard Dark Grey */
-            --purple-glow: #bf55ec;      /* High-Voltage Cyber Purple Accent */
-            --purple-dim: #702082;        /* Deep Ambient Purple Shadow */
-            --text-white: #f5f5f7;       /* Clean Metallic White */
-            --text-gray: #86868b;        /* Subdued Tech Label Gray */
-            --border-glow: #1f1a26;      /* Ultra-subtle Dark Purple Border */
+            --bg-deep: #030305;          /* Jet Obsidian Black */
+            --bg-card: #09090d;          /* Velvet Dark Card */
+            --purple-glow: #a855f7;      /* Vivid Electric Purple Accent */
+            --purple-dim: #4c1d95;       /* Deep Ambient Purple Shadow */
+            --text-white: #f8fafc;       /* Ultra-Clean Metallic White */
+            --text-gray: #64748b;        /* Subdued Tech Label Gray */
+            --border-glow: #1e1b4b;      /* Micro-fine Dark Purple Border */
         }
 
         /* --- Reset & Base Layout --- */
@@ -21,7 +21,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
@@ -29,38 +29,37 @@
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* --- Ambient Background Lights (Inspired by the Video) --- */
+        /* --- Video-Style Ambient Fluid Lights --- */
         .ambient-glow {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(191, 85, 236, 0.08) 0%, rgba(0,0,0,0) 70%);
-            top: -200px;
-            right: -100px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(76, 29, 149, 0.03) 50%, rgba(0,0,0,0) 70%);
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: -1;
             pointer-events: none;
-        }
-        .ambient-glow-left {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(112, 32, 130, 0.05) 0%, rgba(0,0,0,0) 70%);
-            bottom: -150px;
-            left: -150px;
-            z-index: -1;
-            pointer-events: none;
+            filter: blur(40px);
+            animation: pulseGlow 8s ease-in-out infinite alternate;
         }
 
-        /* --- Header & Navigation --- */
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* --- Cinematic Navigation (Glassmorphism) --- */
         header {
             position: sticky;
             top: 0;
-            background: rgba(5, 5, 7, 0.75);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border-glow);
+            background: rgba(3, 3, 5, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             z-index: 1000;
         }
 
@@ -70,116 +69,148 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 30px;
+            padding: 25px 30px;
         }
 
         .logo {
             font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
         .logo span {
             color: var(--purple-glow);
-            text-shadow: 0 0 15px rgba(191, 85, 236, 0.6);
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+        }
+
+        nav {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         nav a {
             color: var(--text-gray);
             text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.85rem;
+            padding: 8px 20px;
+            font-size: 0.8rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 100px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover {
             color: var(--text-white);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        /* --- Shared Structure Layout --- */
+        nav a.active {
+            color: var(--text-white);
+            background: rgba(168, 85, 247, 0.15);
+            box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        /* --- App container --- */
         .container {
-            max-width: 1100px;
-            margin: 60px auto;
+            max-width: 1000px;
+            margin: 80px auto;
             padding: 0 30px;
         }
 
+        /* --- Exact Video Layout Morphing Animations --- */
         .page-section {
             display: none;
+            opacity: 0;
         }
 
         .page-section.active-section {
             display: block;
-            animation: elegantSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: videoSlideIn 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
         }
 
-        @keyframes elegantSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes videoSlideIn {
+            0% { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.98); 
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+                filter: blur(0);
+            }
         }
 
-        /* --- Premium UI Typography & Cards --- */
+        /* --- Typography Elements --- */
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .section-header h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
+            letter-spacing: -1.5px;
+            margin-bottom: 15px;
+            background: linear-gradient(to bottom, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-header p {
-            color: var(--text-gray);
-            font-size: 1rem;
-            letter-spacing: 0.5px;
+            color: var(--purple-glow);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
+        /* --- Premium Cards --- */
         .luxury-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 50px;
             margin-bottom: 35px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .luxury-card:hover {
-            border-color: rgba(191, 85, 236, 0.3);
-            box-shadow: 0 25px 50px rgba(112, 32, 130, 0.1);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 40px 80px rgba(76, 29, 149, 0.15);
+            transform: translateY(-2px);
         }
 
-        /* --- Specific Section Component Layouts --- */
+        /* --- Profile Structural Layout --- */
         .profile-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 240px 1fr;
             gap: 50px;
             align-items: center;
         }
 
         .avatar-frame {
-            width: 240px;
-            height: 240px;
-            border-radius: 24px;
-            background: linear-gradient(145deg, #121217, #07070a);
+            width: 220px;
+            height: 220px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #0e0e14, #040406);
             border: 1px solid var(--border-glow);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-gray);
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
         .spec-table {
@@ -188,8 +219,8 @@
         }
 
         .spec-table td {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             font-size: 0.95rem;
         }
 
@@ -197,13 +228,12 @@
             color: var(--text-gray);
             font-weight: 500;
             width: 35%;
-            letter-spacing: 0.5px;
         }
 
-        /* --- Log Entry Mechanics --- */
+        /* --- Premium Timeline Node Elements --- */
         .log-timeline-wrapper {
             position: relative;
-            padding-left: 30px;
+            padding-left: 40px;
         }
 
         .log-timeline-wrapper::before {
@@ -218,23 +248,23 @@
 
         .log-node {
             position: relative;
-            margin-bottom: 45px;
+            margin-bottom: 50px;
         }
 
         .log-node::after {
             content: '';
             position: absolute;
-            left: -34px;
-            top: 6px;
+            left: -44px;
+            top: 8px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background-color: var(--purple-glow);
-            box-shadow: 0 0 12px var(--purple-glow);
+            box-shadow: 0 0 15px var(--purple-glow);
         }
 
         .log-meta {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--purple-glow);
             text-transform: uppercase;
@@ -243,127 +273,130 @@
         }
 
         .log-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .log-desc {
             color: var(--text-gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
-        /* --- Showroom Gallery --- */
+        /* --- Grid Galleries --- */
         .grid-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .gallery-box {
             background-color: var(--bg-card);
             border: 1px solid var(--border-glow);
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .gallery-box:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
+            border-color: rgba(168, 85, 247, 0.3);
         }
 
         .img-fallback {
-            height: 220px;
-            background: linear-gradient(180deg, #101015 0%, #060608 100%);
+            height: 240px;
+            background: linear-gradient(180deg, #0e0e14 0%, #030305 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-gray);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .caption {
-            padding: 20px;
-            font-size: 0.85rem;
+            padding: 25px;
+            font-size: 0.9rem;
             color: var(--text-gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        /* --- Responsive Viewports --- */
+        /* --- Responsive Structure Adjustment --- */
         @media (max-width: 850px) {
-            .profile-layout { grid-template-columns: 1fr; justify-items: center; gap: 30px; }
+            .profile-layout { grid-template-columns: 1fr; justify-items: center; gap: 40px; }
             .nav-container { flex-direction: column; gap: 20px; }
-            nav a { margin: 0 12px; }
+            .section-header h1 { font-size: 2.2rem; }
+            .luxury-card { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Glow Backdrops -->
+    <!-- Ambient Floating Light Ring -->
     <div class="ambient-glow"></div>
-    <div class="ambient-glow-left"></div>
 
-    <!-- Global Top Header Navigation -->
+    <!-- Top Premium Navigation Deck -->
     <header>
         <div class="nav-container">
             <div class="logo">E-VOLT<span>LOG</span></div>
             <nav>
-                <a onclick="showTab('profile')" id="btn-profile" class="active">Profile</a>
-                <a onclick="showTab('corporate')" id="btn-corporate">Corporate</a>
-                <a onclick="showTab('ledger')" id="btn-ledger">Activity Ledger</a>
-                <a onclick="showTab('showroom')" id="btn-showroom">Showroom</a>
+                <a onclick="morphToTab('profile')" id="btn-profile" class="active">Profile</a>
+                <a onclick="morphToTab('corporate')" id="btn-corporate">Corporate</a>
+                <a onclick="morphToTab('ledger')" id="btn-ledger">Activity Ledger</a>
+                <a onclick="morphToTab('showroom')" id="btn-showroom">Showroom</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- ================= PROFILE VIEW ================= -->
+        <!-- ================= STUDENT PROFILE VIEW ================= -->
         <section id="tab-profile" class="page-section active-section">
             <div class="section-header">
-                <h1>Executive Summary</h1>
-                <p>Internship Credentials and Identity Registry</p>
+                <p>Identity Registry</p>
+                <h1>Executive Profile</h1>
             </div>
             <div class="luxury-card">
                 <div class="profile-layout">
                     <div class="avatar-frame">Secure ID Image</div>
                     <div style="width: 100%;">
                         <table class="spec-table">
-                            <tr><td>Candidate</td><td>[Your Identity Blueprint]</td></tr>
-                            <tr><td>Assigned ID</td><td>#ENG-2026-0098</td></tr>
-                            <tr><td>Specialization</td><td>High-Performance Smart Mobility Systems</td></tr>
-                            <tr><td>Academic Base</td><td>[Your University Facility]</td></tr>
-                            <tr><td>Tenure Block</td><td>Q3 - Q4 2026 Rotation</td></tr>
+                            <tr><td>Candidate Name</td><td>[Your Name Blueprint]</td></tr>
+                            <tr><td>Assigned ID</td><td>#EV-2026-8891</td></tr>
+                            <tr><td>Specialization</td><td>High-Performance E-Mobility Engineering</td></tr>
+                            <tr><td>Academic Institution</td><td>[Your University Facility]</td></tr>
+                            <tr><td>Placement Cycle</td><td>Full-Time Internship Block 2026</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= CORPORATE ENGINE VIEW ================= -->
+        <!-- ================= COMPANY PROFILE VIEW ================= -->
         <section id="tab-corporate" class="page-section">
             <div class="section-header">
+                <p>Infrastructure Ecosystem</p>
                 <h1>Corporate Entity</h1>
-                <p>Operational Hosting Infrastructure Partner</p>
             </div>
             <div class="luxury-card">
                 <table class="spec-table" style="margin-bottom: 25px;">
-                    <tr><td>Importer Class</td><td>Premium Next-Gen EV Distribution Pipeline</td></tr>
-                    <tr><td>Fleet Specialization</td><td>Performance BEVs & Luxury Smart Vehicles</td></tr>
-                    <tr><td>Supervisory Mentor</td><td>[Lead Technical Director Name]</td></tr>
+                    <tr><td>Importer Class</td><td>High-End Electric Vehicle Logistics Pipeline</td></tr>
+                    <tr><td>Fleet Orientation</td><td>Performance BEVs & Premium EV Architecture</td></tr>
+                    <tr><td>Supervisor Director</td><td>[Lead Placement Supervisor Name]</td></tr>
                 </table>
-                <p style="color: var(--text-gray); font-size: 0.95rem;">
-                    Operating directly alongside distribution logistics networks to analyze customs compliance architecture, vehicle telematics adaptation, and sustainable infrastructure implementation plans for high-tier electric automotive technology imports.
+                <p style="color: var(--text-gray); font-size: 1rem;">
+                    Operating within international vehicle import networks to analyze regulatory customs frameworks, high-voltage battery compliance protocols, and smart telematics adaptations for top-tier EV markets.
                 </p>
             </div>
         </section>
 
-        <!-- ================= ACTIVITY LOG LEDGER VIEW ================= -->
+        <!-- ================= WEEKLY LOGS VIEW ================= -->
         <section id="tab-ledger" class="page-section">
             <div class="section-header">
-                <h1>Activity Ledger</h1>
-                <p>Chronological Milestones & Task Progressions</p>
+                <p>Activity Milestones</p>
+                <h1>Logbook Ledger</h1>
             </div>
             <div class="luxury-card">
                 <div class="log-timeline-wrapper">
@@ -371,18 +404,18 @@
                     <!-- Week 2 Block -->
                     <div class="log-node">
                         <div class="log-meta">Milestone Cycle 02</div>
-                        <div class="log-title">Grid Configuration & Charging Interface Audits</div>
+                        <div class="log-title">Grid Synchronization & Intelligent Diagnostic Arrays</div>
                         <div class="log-desc">
-                            Conducted systematic technical reviews of imported vehicle charging compatibility constraints against regional utility parameters. Mapped voltage efficiency curves during high-rate acceleration diagnostics.
+                            Analyzed charging profile limits of imported European sports performance models. Monitored diagnostic adaptation sequences across regional infrastructure arrays.
                         </div>
                     </div>
 
                     <!-- Week 1 Block -->
                     <div class="log-node">
                         <div class="log-meta">Milestone Cycle 01</div>
-                        <div class="log-title">Logistics Infrastructure & Systems Integration</div>
+                        <div class="log-title">Onboarding Protocols & High-Voltage System Access</div>
                         <div class="log-desc">
-                            Initialized corporate network access protocols. Completed comprehensive security training modules regarding heavy traction battery safety parameters and vehicle configuration data protection.
+                            Completed system safety orientation courses for traction battery configurations. Initialized terminal accounts across inventory tracking management platforms.
                         </div>
                     </div>
 
@@ -390,22 +423,22 @@
             </div>
         </section>
 
-        <!-- ================= SHOWROOM VIEW ================= -->
+        <!-- ================= GALLERY VIEW ================= -->
         <section id="tab-showroom" class="page-section">
             <div class="section-header">
+                <p>Visual Log Documentation</p>
                 <h1>Showroom Matrix</h1>
-                <p>Visual Asset Documentation Field Logs</p>
             </div>
             <div class="grid-gallery">
                 
                 <div class="gallery-box">
                     <div class="img-fallback">[Telemetry Asset 01]</div>
-                    <div class="caption">Reviewing digital cockpit array software integrations.</div>
+                    <div class="caption">Reviewing digital cockpit array instrument calibrations.</div>
                 </div>
 
                 <div class="gallery-box">
                     <div class="img-fallback">[Infrastructure Asset 02]</div>
-                    <div class="caption">High-capacity power cell diagnostic monitoring setup.</div>
+                    <div class="caption">High-capacity rapid power bay diagnostics array.</div>
                 </div>
 
             </div>
@@ -413,17 +446,42 @@
 
     </div>
 
-    <!-- Tab Logic Processing Controller -->
+    <!-- Advanced Morphing Interface Controller -->
     <script>
-        function showTab(tabKey) {
-            // Target elements using modern standard selection
-            const sections = document.querySelectorAll('.page-section');
-            const links = document.querySelectorAll('nav a');
+        function morphToTab(tabKey) {
+            const activeSection = document.querySelector('.page-section.active-section');
+            const targetSection = document.getElementById(`tab-${tabKey}`);
+            
+            if (activeSection === targetSection) return;
 
-            sections.forEach(s => s.classList.remove('active-section'));
+            // Step 1: Smoothly collapse active section out
+            if (activeSection) {
+                activeSection.style.animation = 'none';
+                // Trigger a momentary exit phase
+                activeSection.style.opacity = '0';
+                activeSection.style.transform = 'translateY(-20px)';
+                activeSection.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                setTimeout(() => {
+                    activeSection.classList.remove('active-section');
+                    // Reset inline styles
+                    activeSection.style.transition = '';
+                    activeSection.style.transform = '';
+                    
+                    // Step 2: Swap and drop-in the new layout cleanly
+                    executeInboundMorph(targetSection, tabKey);
+                }, 250);
+            } else {
+                executeInboundMorph(targetSection, tabKey);
+            }
+        }
+
+        function executeInboundMorph(targetSection, tabKey) {
+            const links = document.querySelectorAll('nav a');
             links.forEach(l => l.classList.remove('active'));
 
-            document.getElementById(`tab-${tabKey}`).classList.add('active-section');
+            targetSection.classList.add('active-section');
+            document.getElementById(`btn-${tabKey}`).add('active');
             document.getElementById(`btn-${tabKey}`).classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
