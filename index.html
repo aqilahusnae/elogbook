@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Logbook | Luxury EV Imports</title>
+    <style>
+        /* --- Luxury Cyber-Purple Variables --- */
+        :root {
+            --bg-deep: #050507;          /* Premium Obsidian Shadow */
+            --bg-card: #0c0c10;          /* Sleek Dashboard Dark Grey */
+            --purple-glow: #bf55ec;      /* High-Voltage Cyber Purple Accent */
+            --purple-dim: #702082;        /* Deep Ambient Purple Shadow */
+            --text-white: #f5f5f7;       /* Clean Metallic White */
+            --text-gray: #86868b;        /* Subdued Tech Label Gray */
+            --border-glow: #1f1a26;      /* Ultra-subtle Dark Purple Border */
+        }
+
+        /* --- Reset & Base Layout --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Ambient Background Lights (Inspired by the Video) --- */
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(191, 85, 236, 0.08) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            right: -100px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .ambient-glow-left {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(112, 32, 130, 0.05) 0%, rgba(0,0,0,0) 70%);
+            bottom: -150px;
+            left: -150px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 7, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border-glow);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--purple-glow);
+            text-shadow: 0 0 15px rgba(191, 85, 236, 0.6);
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- Shared Structure Layout --- */
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-section {
+            display: block;
+            animation: elegantSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes elegantSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Premium UI Typography & Cards --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .luxury-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 35px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .luxury-card:hover {
+            border-color: rgba(191, 85, 236, 0.3);
+            box-shadow: 0 25px 50px rgba(112, 32, 130, 0.1);
+        }
+
+        /* --- Specific Section Component Layouts --- */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .avatar-frame {
+            width: 240px;
+            height: 240px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, #121217, #07070a);
+            border: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spec-table td {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.95rem;
+        }
+
+        .spec-table td:first-child {
+            color: var(--text-gray);
+            font-weight: 500;
+            width: 35%;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Log Entry Mechanics --- */
+        .log-timeline-wrapper {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .log-timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--purple-glow), transparent);
+        }
+
+        .log-node {
+            position: relative;
+            margin-bottom: 45px;
+        }
+
+        .log-node::after {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--purple-glow);
+            box-shadow: 0 0 12px var(--purple-glow);
+        }
+
+        .log-meta {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--purple-glow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .log-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .log-desc {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* --- Showroom Gallery --- */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .img-fallback {
+            height: 220px;
+            background: linear-gradient(180deg, #101015 0%, #060608 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .caption {
+            padding: 20px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        /* --- Responsive Viewports --- */
+        @media (max-width: 850px) {
+            .profile-layout { grid-template-columns: 1fr; justify-items: center; gap: 30px; }
+            .nav-container { flex-direction: column; gap: 20px; }
+            nav a { margin: 0 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Glow Backdrops -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-left"></div>
+
+    <!-- Global Top Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">E-VOLT<span>LOG</span></div>
+            <nav>
+                <a onclick="showTab('profile')" id="btn-profile" class="active">Profile</a>
+                <a onclick="showTab('corporate')" id="btn-corporate">Corporate</a>
+                <a onclick="showTab('ledger')" id="btn-ledger">Activity Ledger</a>
+                <a onclick="showTab('showroom')" id="btn-showroom">Showroom</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ================= PROFILE VIEW ================= -->
+        <section id="tab-profile" class="page-section active-section">
+            <div class="section-header">
+                <h1>Executive Summary</h1>
+                <p>Internship Credentials and Identity Registry</p>
+            </div>
+            <div class="luxury-card">
+                <div class="profile-layout">
+                    <div class="avatar-frame">Secure ID Image</div>
+                    <div style="width: 100%;">
+                        <table class="spec-table">
+                            <tr><td>Candidate</td><td>[Your Identity Blueprint]</td></tr>
+                            <tr><td>Assigned ID</td><td>#ENG-2026-0098</td></tr>
+                            <tr><td>Specialization</td><td>High-Performance Smart Mobility Systems</td></tr>
+                            <tr><td>Academic Base</td><td>[Your University Facility]</td></tr>
+                            <tr><td>Tenure Block</td><td>Q3 - Q4 2026 Rotation</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CORPORATE ENGINE VIEW ================= -->
+        <section id="tab-corporate" class="page-section">
+            <div class="section-header">
+                <h1>Corporate Entity</h1>
+                <p>Operational Hosting Infrastructure Partner</p>
+            </div>
+            <div class="luxury-card">
+                <table class="spec-table" style="margin-bottom: 25px;">
+                    <tr><td>Importer Class</td><td>Premium Next-Gen EV Distribution Pipeline</td></tr>
+                    <tr><td>Fleet Specialization</td><td>Performance BEVs & Luxury Smart Vehicles</td></tr>
+                    <tr><td>Supervisory Mentor</td><td>[Lead Technical Director Name]</td></tr>
+                </table>
+                <p style="color: var(--text-gray); font-size: 0.95rem;">
+                    Operating directly alongside distribution logistics networks to analyze customs compliance architecture, vehicle telematics adaptation, and sustainable infrastructure implementation plans for high-tier electric automotive technology imports.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= ACTIVITY LOG LEDGER VIEW ================= -->
+        <section id="tab-ledger" class="page-section">
+            <div class="section-header">
+                <h1>Activity Ledger</h1>
+                <p>Chronological Milestones & Task Progressions</p>
+            </div>
+            <div class="luxury-card">
+                <div class="log-timeline-wrapper">
+
+                    <!-- Week 2 Block -->
+                    <div class="log-node">
+                        <div class="log-meta">Milestone Cycle 02</div>
+                        <div class="log-title">Grid Configuration & Charging Interface Audits</div>
+                        <div class="log-desc">
+                            Conducted systematic technical reviews of imported vehicle charging compatibility constraints against regional utility parameters. Mapped voltage efficiency curves during high-rate acceleration diagnostics.
+                        </div>
+                    </div>
+
+                    <!-- Week 1 Block -->
+                    <div class="log-node">
+                        <div class="log-meta">Milestone Cycle 01</div>
+                        <div class="log-title">Logistics Infrastructure & Systems Integration</div>
+                        <div class="log-desc">
+                            Initialized corporate network access protocols. Completed comprehensive security training modules regarding heavy traction battery safety parameters and vehicle configuration data protection.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SHOWROOM VIEW ================= -->
+        <section id="tab-showroom" class="page-section">
+            <div class="section-header">
+                <h1>Showroom Matrix</h1>
+                <p>Visual Asset Documentation Field Logs</p>
+            </div>
+            <div class="grid-gallery">
+                
+                <div class="gallery-box">
+                    <div class="img-fallback">[Telemetry Asset 01]</div>
+                    <div class="caption">Reviewing digital cockpit array software integrations.</div>
+                </div>
+
+                <div class="gallery-box">
+                    <div class="img-fallback">[Infrastructure Asset 02]</div>
+                    <div class="caption">High-capacity power cell diagnostic monitoring setup.</div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Tab Logic Processing Controller -->
+    <script>
+        function showTab(tabKey) {
+            // Target elements using modern standard selection
+            const sections = document.querySelectorAll('.page-section');
+            const links = document.querySelectorAll('nav a');
+
+            sections.forEach(s => s.classList.remove('active-section'));
+            links.forEach(l => l.classList.remove('active'));
+
+            document.getElementById(`tab-${tabKey}`).classList.add('active-section');
+            document.getElementById(`btn-${tabKey}`).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
