@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqila Husna | E-Logbook</title>
+    
+    <!-- Modern Luxury Typography: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Minimalist Clay/Neumorphic Theme Tokens --- */
+        :root {
+            --bg-deep: #eef1f5;
+            --bg-glass: rgba(255, 255, 255, 0.75);
+            --bg-glass-hover: rgba(255, 255, 255, 0.9);
+            --accent-main: #111111;     
+            --accent-subtle: #666666;     
+            --accent-glow: rgba(0, 0, 0, 0.08);
+            --text-silver: #1a1a1a;
+            --text-muted: #626875;
+            --border-fine: rgba(255, 255, 255, 0.8);
+            --border-highlight: rgba(0, 0, 0, 0.15);
+            --soft-shadow: 0 12px 30px rgba(166, 175, 195, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 16px 35px rgba(166, 175, 195, 0.25), inset 0 2px 0 rgba(255, 255, 255, 0.8);
+            
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* --- Layout Engine (Scaled for 100% Default Browser View) --- */
+        html {
+            font-size: 15px;
+        }
+
+        html, body {
+            zoom: 1;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-deep);
+            color: var(--text-silver);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #corporate {
+            min-height: auto;
+            height: auto;
+            padding: 110px 36px 60px 36px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #ffffff;
+        }
+
+        #ledger {
+            min-height: 100vh;
+            height: auto;
+            padding: 80px 36px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .corporate-canvas-bg, .profile-canvas-bg, .ledger-canvas-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-frame {
+            max-width: 1120px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 30px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* ================= BACKGROUND ENGINE ================= */
+        .ambient-bg-engine {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(220, 225, 235, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+                linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 45px 45px, 45px 45px;
+            z-index: 1;
+            pointer-events: none;
+            animation: atmosphericDrift 28s linear infinite;
+        }
+
+        @keyframes atmosphericDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(1deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        /* ================= NAVIGATION ================= */
+        header {
+            position: fixed;
+            top: 16px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: headerReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes headerReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 24px; 
+            background: rgba(245, 247, 250, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-fine);
+            border-radius: 100px;
+            box-shadow: 0 8px 25px rgba(166, 175, 195, 0.25);
+        }
+
+        .logo { display: flex; align-items: center; gap: 8px; }
+        .logo img { display: block; object-fit: contain; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .logo img:hover { transform: scale(1.05); }
+
+        .uumlogo { height: 36px; width: auto; }
+        .cadblogo { height: 37px; width: auto; }
+        .pekemalogo { height: 32px; width: auto; }
+
+        nav { display: flex; gap: 6px; align-items: center; }
+        nav a {
+            font-family: var(--font-body);
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 18px; 
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border-radius: 100px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-silver);
+            background: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transform: scale(1.03);
+        }
+
+        .anim-arrow-right {
+            display: inline-block;
+            margin-left: 6px;
+            animation: bounceRight 1.5s infinite;
+        }
+
+        .anim-arrow-left {
+            display: inline-block;
+            margin-right: 6px;
+            animation: bounceLeft 1.5s infinite;
+        }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        @keyframes bounceLeft {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-5px); }
+        }
+
+        .corp-bottom-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .corp-bottom-link:hover {
+            color: var(--text-silver);
+        }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .lang-switch {
+            font-family: var(--font-body);
+            color: var(--text-silver);
+            text-decoration: none;
+            font-size: 0.68rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-fine);
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .lang-switch:hover {
+            border-color: var(--accent-main);
+            background: #ffffff;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-fine);
+            border-radius: 100px;
+            padding: 3px 6px 3px 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-main);
+            box-shadow: 0 0 12px var(--accent-glow);
+            background: #ffffff;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-silver);
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            width: 100px;
+            transition: width 0.3s ease;
+        }
+
+        .search-input:focus { width: 130px; }
+        .search-input::placeholder { color: var(--text-muted); }
+
+        .search-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover { color: var(--accent-main); transform: scale(1.1); }
+        mark.search-highlight { background: var(--accent-main); color: #ffffff; border-radius: 2px; padding: 0 2px; }
+
+        .page-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .section-header { text-align: center; margin-bottom: 20px; width: 100%; }
+        .section-header p {
+            font-family: var(--font-body);
+            color: var(--accent-subtle);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3.5px;
+            margin-bottom: 6px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin: 0;
+            color: var(--text-silver);
+        }
+
+        /* ================= HERO VIDEO ENGINE ================= */
+        .hero-video-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg, 
+                rgba(0, 0, 0, 0.45) 0%, 
+                rgba(0, 0, 0, 0.35) 50%, 
+                rgba(0, 0, 0, 0.55) 100%
+            );
+            z-index: 2;
+        }
+
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-layout { text-align: center; position: relative; z-index: 5; }
+        
+        .hero-eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4.5px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+        .hero-eyebrow span { color: #ffffff; font-weight: 700; }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+        .hero-title span { 
+            color: #ffffff;
+            opacity: 0.95;
+        }
+
+        .hero-sub-tags {
+            font-family: var(--font-body);
+            display: flex; justify-content: center; gap: 24px;
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 0.8rem; 
+            font-weight: 500; 
+            margin-bottom: 36px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        .hero-sub-tags span { display: flex; align-items: center; gap: 6px; }
+        .hero-sub-tags span::before { 
+            content: ''; 
+            display: inline-block; 
+            width: 5px; 
+            height: 5px; 
+            background: #ffffff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px rgba(255,255,255,0.8);
+        }
+
+        .cta-group { display: flex; justify-content: center; gap: 16px; }
+
+        .btn {
+            font-family: var(--font-body);
+            padding: 14px 32px; border-radius: 100px;
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+            text-decoration: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .btn-primary { 
+            background-color: #111111; 
+            color: #ffffff; 
+            gap: 10px; 
+            cursor: pointer; 
+            border: none;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+            font-weight: 700;
+        }
+        .btn-primary span { background: rgba(255,255,255,0.2); color: #ffffff; border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; }
+        .btn-primary:hover { transform: translateY(-2px) scale(1.02); background: #333333; box-shadow: 0 12px 26px rgba(0,0,0,0.3); }
+
+        .btn-secondary { 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            color: #ffffff; 
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .btn-secondary:hover { border-color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.3); transform: translateY(-2px) scale(1.02); }
+
+        .hero-footer-left { position: absolute; bottom: 30px; left: 36px; font-size: 0.7rem; font-weight: 500; color: rgba(255, 255, 255, 0.7); z-index: 5; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero-footer-right { position: absolute; bottom: 30px; right: 36px; font-size: 0.7rem; font-weight: 500; color: rgba(255, 255, 255, 0.7); z-index: 5; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero-footer-right span { color: #ffffff; animation: bounce 2s infinite; display: inline-block; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+        /* ================= EXPANSIVE STUDENT PROFILE SECTION ================= */
+        #profile {
+            min-height: 100vh;
+            padding: 90px 0 30px 0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-hero-frame {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 36px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: calc(100vh - 120px);
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .profile-hero-frame * {
+            pointer-events: auto;
+        }
+
+        .profile-grid-hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 45px;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .profile-left-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-badge-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .profile-badge-pill {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-fine);
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-silver);
+            box-shadow: 0 4px 15px rgba(166, 175, 195, 0.2);
+        }
+
+        .profile-display-title {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.2px;
+            color: #ffffff;
+            margin: 0 0 16px 0;
+            text-transform: uppercase;
+        }
+
+        .profile-display-title span {
+            display: block;
+            color: #ffffff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: #ffffff;
+        }
+
+        .profile-tagline {
+            font-size: 0.86rem;
+            line-height: 1.55;
+            color: #ffffff;
+            max-width: 480px;
+            margin-bottom: 28px;
+        }
+
+        .profile-action-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cv-button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--accent-main);
+            color: #ffffff;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+            padding: 14px 32px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cv-button:hover {
+            background-color: #333333;
+            color: #ffffff;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25);
+        }
+
+        .profile-right-col {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px;
+        }
+
+        /* --- Spacious Portrait Card --- */
+        .profile-portrait-card {
+            width: 100%;
+            max-width: 320px;
+            height: 400px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid var(--border-fine);
+            box-shadow: var(--card-shadow);
+            padding: 14px;
+            box-sizing: border-box;
+            position: relative;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            transition: transform 0.5s ease;
+        }
+
+        .profile-portrait-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-image-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: scale 0.6s ease;
+        }
+
+        .profile-portrait-card:hover .profile-image-container img {
+            scale: 1.04;
+        }
+
+        .floating-node {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-fine);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 11px 16px;
+            border-radius: 14px;
+            box-shadow: 0 12px 25px rgba(166, 175, 195, 0.22);
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-node:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: scale(1.04) translateY(-3px);
+            border-color: var(--border-highlight);
+        }
+
+        .floating-node-top {
+            top: 15px;
+            right: -15px;
+            max-width: 190px;
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        .floating-node-bottom {
+            bottom: 20px;
+            left: -25px;
+            max-width: 220px;
+            animation: floatSlow 6s ease-in-out infinite 3s;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .node-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .node-val {
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-silver);
+            line-height: 1.3;
+        }
+
+        .profile-metrics-dock {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .metric-block {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid var(--border-fine);
+            border-radius: 16px;
+            padding: 12px 16px;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--soft-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-block:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .metric-val {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-silver);
+        }
+
+        .metric-sub {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* ================= REFINED CYBER-GLASS / CLAY CONTAINERS ================= */
+        .luxury-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-fine);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 95px 36px;
+            box-shadow: var(--card-shadow);
+            margin-top: 24px;
+            width: 100%;
+            max-width: 1020px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+        }
+
+        .luxury-card:hover {
+            border-color: var(--border-highlight);
+            box-shadow: 0 20px 45px rgba(166, 175, 195, 0.35), inset 0 2px 0 rgba(255, 255, 255, 1);
+        }
+
+        /* ================= MATCHED COMPANY PROFILE ARCHITECTURE ================= */
+        .corporate-hero-frame {
+            max-width: 1120px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 36px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ledger-hero-frame {
+            max-width: 1120px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 36px 0 36px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-viewport {
+            display: grid;
+            grid-template-areas: "viewport";
+            width: 100%;
+            justify-items: center;
+            align-items: start;
+        }
+
+        .corp-tab-content {
+            grid-area: viewport;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.985);
+            transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, visibility 0.25s ease-in-out;
+            pointer-events: none;
+            width: 100%;
+            will-change: opacity, transform;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .corp-tab-content.active-content {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .tab-inner-frame {
+            width: 100%;
+            max-width: 1020px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #tab-overview .tab-inner-frame { transform: translateY(20px); }
+        #tab-ev-lineup .tab-inner-frame { transform: translateY(0px); }
+
+        .corp-overview-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .corp-info-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-fine);
+            border-radius: 28px;
+            padding: 28px 32px 95px 32px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease;
+        }
+
+        .corp-info-card:hover {
+            transform: translateY(-4px);
+            background: #ffffff;
+        }
+
+        .corp-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .corp-card-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-silver);
+            margin: 0;
+            letter-spacing: -0.4px;
+        }
+
+        .corp-card-header img { height: 32px; object-fit: contain; }
+
+        .corp-highlights-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .corp-highlights-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            color: var(--text-muted);
+        }
+
+        .corp-highlights-list li svg { flex-shrink: 0; margin-top: 2px; color: var(--accent-main); }
+
+        .card-action-zone {
+            position: absolute;
+            bottom: 28px;
+            left: 32px;
+            right: 32px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding-top: 14px;
+            display: flex;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .btn-org-pdf {
+            background: #ffffff;
+            border: 1px solid var(--border-highlight);
+            color: var(--text-silver);
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            padding: 10px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-org-pdf:hover {
+            background: var(--accent-main);
+            color: #ffffff;
+            border-color: var(--accent-main);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+        /* ================= REFINED EV CAR SHOWCASE ================= */
+        .ev-product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin-top: 22px;
+        }
+
+        .ev-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-fine);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .ev-card:hover {
+            border-color: var(--accent-main);
+            transform: translateY(-6px);
+            background: #ffffff;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .ev-image-frame {
+            position: relative;
+            width: 100%;
+            height: 210px;
+            overflow: hidden;
+            background: #0b0d10;
+        }
+
+        .ev-slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ev-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ev-slide.active { opacity: 1; }
+
+        .ev-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(1.08) contrast(1.1);
+        }
+
+        .ev-card:hover .ev-slide.active img { 
+            transform: scale(1.06); 
+            filter: brightness(1.15) contrast(1.15);
+        }
+
+        .ev-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px 8px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .ev-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .ev-dot:hover { background: rgba(255, 255, 255, 0.9); }
+        .ev-dot.active { background: #ffffff; width: 12px; border-radius: 3px; }
+
+        .ev-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 60%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .ev-badge {
+            position: absolute;
+            top: 12px; left: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-fine);
+            color: var(--text-silver);
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .ev-card-body {
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .ev-card-body h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+            color: var(--text-silver);
+            letter-spacing: -0.4px;
+        }
+
+        .ev-card-body p {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin: 0 0 16px 0;
+        }
+
+        .ev-spec-box {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .spec-row { display: flex; flex-direction: column; gap: 4px; }
+        .spec-info { display: flex; justify-content: space-between; font-size: 0.68rem; }
+        .spec-info span:first-child { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+        .spec-info span:last-child { font-weight: 700; color: var(--text-silver); }
+
+        .meter-bar { width: 100%; height: 5px; background: rgba(0, 0, 0, 0.06); border-radius: 100px; overflow: hidden; }
+        .meter-fill { height: 100%; background: var(--accent-main); width: 0%; border-radius: 100px; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @media (max-width: 900px) {
+            #profile { height: auto; padding: 90px 0 50px 0; }
+            .profile-hero-frame { height: auto; }
+            .profile-grid-hero { grid-template-columns: 1fr; text-align: center; gap: 25px; }
+            .profile-badge-bar, .profile-action-row { justify-content: center; }
+            .profile-display-title { font-size: 2.5rem; }
+            .profile-metrics-dock { grid-template-columns: repeat(2, 1fr); }
+            .profile-portrait-card { height: 360px; max-width: 100%; margin: 25px auto; }
+            .floating-node-top { right: 10px; top: 10px; }
+            .floating-node-bottom { left: 10px; bottom: 10px; }
+
+            #corporate, #ledger { height: auto; min-height: 100vh; padding: 90px 20px; }
+            .corp-overview-split { grid-template-columns: 1fr; }
+            .ev-product-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.5rem; }
+            header { top: 0; }
+            .nav-container { border-radius: 0; border: none; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg-engine"></div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img class="uumlogo" src="https://i.imgur.com/lP9SYJv.png" alt="UUM Logo" referrerpolicy="no-referrer">
+                <img class="cadblogo" src="https://i.imgur.com/eMZAyLg.png" alt="CADB Logo" referrerpolicy="no-referrer">
+                <img class="pekemalogo" src="https://i.imgur.com/vAj2LqE.png" alt="PEKEMA Logo" referrerpolicy="no-referrer">
+            </div>
+            
+            <nav>
+                <a href="#hero" id="nav-hero" class="active" data-lang-en="Home" data-lang-ms="Utama">Home</a>
+                <a href="#profile" id="nav-profile" data-lang-en="Student Profile" data-lang-ms="Profil Pelajar">Student Profile</a>
+                <a href="#corporate" id="nav-corporate" onclick="switchCorpTab('overview')" data-lang-en="Company Profile" data-lang-ms="Profil Syarikat">Company Profile</a>
+                <a href="#ledger" id="nav-ledger" data-lang-en="Weekly Log" data-lang-ms="Log Mingguan">Weekly Log</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#" class="lang-switch" id="langSwitch">EN</a>
+                <form class="search-box" id="searchForm" onsubmit="performSearch(event)">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search..." data-lang-en="Search..." data-lang-ms="Cari...">
+                    <button type="submit" class="search-btn" title="Search">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- SLIDE 1: HERO DISPLAY WITH VIDEO BACKGROUND -->
+    <section id="hero" class="page-section hero-video-section">
+        <div class="video-background">
+            <video autoplay loop muted playsinline id="heroVideo" poster="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1920&q=80">
+                <source src="https://dongfeng.co.nz/wp-content/uploads/2026/01/DFM0024-Website-header-video-007-1920x1080_v1.webm" type="video/webm">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="content-frame hero-layout hero-content-wrapper">
+            <div class="hero-eyebrow" data-lang-en="Bachelor of Accounting <span>(IS)</span>" data-lang-ms="Ijazah Sarjana Muda Perakaunan <span>(IS)</span>">Bachelor of Accounting <span>(IS)</span></div>
+            <h1 class="hero-title" data-lang-en="E-Logbook<br>Accounting & <span>Systems</span>" data-lang-ms="E-Logbook<br>Akaun & <span>Sistem</span>">
+                E-Logbook<br>
+                Accounting & <span>Systems</span>
+            </h1>
+            
+            <div class="hero-sub-tags">
+                <span data-lang-en="Central Auto Distributors Berhad" data-lang-ms="Central Auto Distributors Berhad">Central Auto Distributors Berhad</span>
+                <span data-lang-en="April 1 - September 30, 2026" data-lang-ms="April 1 - September 30, 2026">April 1 - September 30, 2026</span>
+                <span data-lang-en="EV Finance Operations" data-lang-ms="Operasi Kewangan EV">EV Finance Operations</span>
+            </div>
+
+            <div class="cta-group">
+                <a href="https://anyflip.com/wlwqw/yxgm/" target="_blank" class="btn btn-primary" data-lang-en="Open Weekly Logbook <span>→</span>" data-lang-ms="Buka Buku Log Mingguan <span>→</span>">Open Weekly Logbook<span>→</span></a>
+                <a href="#ledger" class="btn btn-secondary" data-lang-en="Scroll Preview" data-lang-ms="Pratonton Skrol">Scroll Preview</a>
+            </div>
+        </div>
+        <div class="hero-footer-left"><span>BKASXK49512</span></div>
+        <div class="hero-footer-right" data-lang-en="Scroll down to navigate <span>↓</span>" data-lang-ms="Skrol ke bawah untuk navigasi <span>↓</span>">Scroll down to navigate <span>↓</span></div>
+    </section>
+
+    <!-- SLIDE 2: EXPANSIVE STUDENT PROFILE SECTION -->
+    <section id="profile" class="page-section">
+        <canvas id="profileCanvas" class="profile-canvas-bg"></canvas>
+
+        <div class="profile-hero-frame">
+            <div class="profile-grid-hero">
+                <div class="profile-left-col">
+                    <div class="profile-badge-bar">
+                        <div class="profile-badge-pill" data-lang-en="Matric: 294847" data-lang-ms="No. Matrik: 294847">Matric: 294847</div>
+                        <div class="profile-badge-pill" data-lang-en="Admission Session A221" data-lang-ms="Sesi Kemasukan A221">Admission Session A221</div>
+                    </div>
+
+                    <h1 class="profile-display-title">
+                        Aqila Husna
+                        <span data-lang-en="binti Mohd" data-lang-ms="binti Mohd">binti Mohd</span>
+                    </h1>
+
+                    <p class="profile-tagline" data-lang-en="Candidate undergoing intensive 6-month industrial accounting placement. Specialized in EV accounting workflows, ERP integrations, and financial ledger governance." data-lang-ms="Calon Latihan Industri 6 bulan. Pengkhususan dalam aliran kerja perakaunan EV, integrasi ERP, dan tadbir urus lejar kewangan.">
+                        Candidate undergoing intensive 6-month industrial accounting placement. Specialized in EV accounting workflows, ERP integrations, and financial ledger governance.
+                    </p>
+
+                    <div class="profile-action-row">
+                        <a href="mailto:aqila_husna_m@soa.uum.edu.my" class="btn btn-primary" data-lang-en="Contact Trainee <span>✉</span>" data-lang-ms="Hubungi Pelajar <span>✉</span>">
+                            Contact Trainee <span>✉</span>
+                        </a>
+                        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:7038a2e5-66b6-491f-ab3a-8ca0cca6c0b1" target="_blank" class="cv-button" role="button" data-lang-en="Curriculum Vitae" data-lang-ms="Kurikulum Vitae">
+                            Curriculum Vitae
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile-right-col">
+                    <div class="profile-portrait-card">
+                        <div class="profile-image-container">
+                            <img src="https://i.imgur.com/VNG7GUu.jpeg" alt="Aqila Husna Profile Photo" referrerpolicy="no-referrer">
+                        </div>
+                    </div>
+
+                    <div class="floating-node floating-node-top">
+                        <div class="node-label" data-lang-en="Academic Base" data-lang-ms="Asas Akademik">Academic Base</div>
+                        <div class="node-val" data-lang-en="Universiti Utara Malaysia" data-lang-ms="Universiti Utara Malaysia">Universiti Utara Malaysia</div>
+                    </div>
+
+                    <div class="floating-node floating-node-bottom">
+                        <div class="node-label" data-lang-en="Programme" data-lang-ms="Program">Programme</div>
+                        <div class="node-val" data-lang-en="Bachelor of Accounting (IS)" data-lang-ms="Ijazah Sarjana Muda Perakaunan (IS)">Bachelor of Accounting (IS)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-metrics-dock">
+                <div class="metric-block">
+                    <div class="metric-val" data-lang-en="6 Months" data-lang-ms="6 Bulan">6 Months</div>
+                    <div class="metric-sub" data-lang-en="Placement Period" data-lang-ms="Tempoh Penempatan">Placement Period</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-val" data-lang-en="April - Sept 2026" data-lang-ms="April - Sept 2026">April - Sept 2026</div>
+                    <div class="metric-sub" data-lang-en="Operational Horizon" data-lang-ms="Tempoh Operasi">Operational Horizon</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-val">TISSA</div>
+                    <div class="metric-sub" data-lang-en="School of Accountancy" data-lang-ms="Pusat Pengajian">School of Accountancy</div>
+                </div>
+                <div class="metric-block">
+                    <div class="metric-val">CADB</div>
+                    <div class="metric-sub" data-lang-en="Host Establishment" data-lang-ms="Organisasi Tuan Rumah">Host Establishment</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: COMPANY PROFILE SECTION -->
+    <section id="corporate" class="page-section">
+        <canvas id="corporateCanvas" class="corporate-canvas-bg"></canvas>
+
+        <div class="corporate-hero-frame">
+            <div class="section-header">
+                <p data-lang-en="Host Organization & Corporate Ecosystem" data-lang-ms="Organisasi Tuan Rumah & Ekosistem Korporat">Host Organization & Corporate Ecosystem</p>
+                <h2 data-lang-en="Corporate Profile & EV Showcase" data-lang-ms="Profil Korporat & Galeri EV">Corporate Profile & EV Showcase</h2>
+            </div>
+
+            <!-- LOCKED STACKED GRID VIEWPORT -->
+            <div class="tab-viewport">
+                
+                <!-- TAB 1: OVERVIEW -->
+                <div id="tab-overview" class="corp-tab-content active-content">
+                    <div class="tab-inner-frame">
+                        <div class="corp-overview-split">
+                            
+                            <!-- CADB CARD -->
+                            <div class="corp-info-card">
+                                <div>
+                                    <div class="corp-card-header">
+                                        <h3>CADB</h3>
+                                        <img src="https://i.imgur.com/eMZAyLg.png" alt="CADB Logo" referrerpolicy="no-referrer">
+                                    </div>
+                                    <span class="profile-badge-pill" style="margin-bottom: 12px; display: inline-block;" data-lang-en="Exclusive Distributor" data-lang-ms="Pengedar Eksklusif">Exclusive Distributor</span>
+                                    <ul class="corp-highlights-list">
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Official Entity:</b> Central Auto Distributors Berhad, operating as a key subsidiary of PEKEMA." data-lang-ms="<b>Entiti Rasmi:</b> Central Auto Distributors Berhad, beroperasi sebagai anak syarikat utama PEKEMA."><b>Official Entity:</b> Central Auto Distributors Berhad, operating as a key subsidiary of PEKEMA.</span>
+                                        </li>
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Core Role:</b> Exclusive distributor for Dongfeng Electric Vehicles in Malaysia." data-lang-ms="<b>Peranan Utama:</b> Pengedar eksklusif Kenderaan Elektrik Dongfeng di Malaysia."><b>Core Role:</b> Exclusive distributor for Dongfeng Electric Vehicles in Malaysia.</span>
+                                        </li>
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Operations:</b> EV import logistics, ERP inventory control, and authorized dealer networks." data-lang-ms="<b>Operasi:</b> Logistik import EV, kawalan inventori ERP, dan rangkaian pengedar sah."><b>Operations:</b> EV import logistics, ERP inventory control, and authorized dealer networks.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-action-zone">
+                                    <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:55ba763c-28de-4650-a7b3-ba59ebcd0045" target="_blank" class="btn-org-pdf" style="width: 100%;" data-lang-en="CADB Chart →" data-lang-ms="Carta CADB →">
+                                        <span>CADB Chart →</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- PEKEMA CARD -->
+                            <div class="corp-info-card">
+                                <div>
+                                    <div class="corp-card-header">
+                                        <h3>PEKEMA</h3>
+                                        <img src="https://i.imgur.com/vAj2LqE.png" alt="PEKEMA Logo" referrerpolicy="no-referrer">
+                                    </div>
+                                    <span class="profile-badge-pill" style="margin-bottom: 12px; display: inline-block;" data-lang-en="Established 1981" data-lang-ms="Ditubuhkan 1981">Established 1981</span>
+                                    <ul class="corp-highlights-list">
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Parent Organization:</b> The Malay Vehicle Importers and Dealers Association of Malaysia." data-lang-ms="<b>Organisasi Induk:</b> Persatuan Pengimport dan Peniaga Kenderaan Melayu Malaysia."><b>Parent Organization:</b> The Malay Vehicle Importers and Dealers Association of Malaysia.</span>
+                                        </li>
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Core Mission:</b> Champions Bumiputera automotive entrepreneurship and commerce nationwide." data-lang-ms="<b>Misi Utama:</b> Memperkasa keusahawanan dan perdagangan automotif Bumiputera di seluruh negara."><b>Core Mission:</b> Champions Bumiputera automotive entrepreneurship and commerce nationwide.</span>
+                                        </li>
+                                        <li>
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span data-lang-en="<b>Headquarters:</b> Wisma Yayasan PEKEMA, Cyberjaya, Selangor." data-lang-ms="<b>Pusat Operasi:</b> Wisma Yayasan PEKEMA, Cyberjaya, Selangor."><b>Headquarters:</b> Wisma Yayasan PEKEMA, Cyberjaya, Selangor.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-action-zone">
+                                    <a href="https://pekema.org.my/ajk-pekema/" target="_blank" class="btn-org-pdf" style="flex: 1;" data-lang-en="PEKEMA AJK CHART →" data-lang-ms="CARTA AJK PEKEMA →">
+                                        <span>PEKEMA AJK CHART →</span>
+                                    </a>
+                                    <a href="https://pekema.org.my/staff-pekema/" target="_blank" class="btn-org-pdf" style="flex: 1;" data-lang-en="PEKEMA STAFF CHART →" data-lang-ms="CARTA STAFF PEKEMA →">
+                                        <span>PEKEMA STAFF CHART →</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a class="corp-bottom-link" onclick="switchCorpTab('ev-lineup')" data-lang-en="Explore Dongfeng EV Lineup <span class='anim-arrow-right'>→</span>" data-lang-ms="Terokai Barisan Dongfeng EV <span class='anim-arrow-right'>→</span>">Explore Dongfeng EV Lineup <span class="anim-arrow-right">→</span></a>
+                    </div>
+                </div>
+
+                <!-- TAB 2: EV SHOWCASE -->
+                <div id="tab-ev-lineup" class="corp-tab-content">
+                    <div class="tab-inner-frame">
+                        <div class="ev-product-grid">
+                            
+                            <!-- MODEL 1 -->
+                            <div class="ev-card">
+                                <div class="ev-image-frame">
+                                    <span class="ev-badge" data-lang-en="Urban Hatchback" data-lang-ms="Hatchback Bandar">Urban Hatchback</span>
+                                    <div class="ev-slides-container">
+                                        <div class="ev-slide active"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/box/exterior/BOX-Icy-Blue-Stone-White.jpg" alt="Dongfeng Box EV 1"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/box/interior/Box-Interior-White-Black.jpg" alt="Dongfeng Box EV 2"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/frameless-doors.jpg" alt="Dongfeng Box EV 3"></div>
+                                    </div>
+                                    <div class="ev-dots">
+                                        <span class="ev-dot active" onclick="jumpToEvSlide(this, 0)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 1)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 2)"></span>
+                                    </div>
+                                    <div class="ev-image-overlay"></div>
+                                </div>
+                                <div class="ev-card-body">
+                                    <div>
+                                        <h4>Dongfeng Box EV</h4>
+                                        <p data-lang-en="A stylish compact electric vehicle designed for modern urban mobility, featuring efficient energy management."
+                                           data-lang-ms="Kenderaan elektrik kompak berprestasi yang direka untuk mobiliti bandar moden, menampilkan pengurusan tenaga cekap.">
+                                           A stylish compact electric vehicle designed for modern urban mobility, featuring efficient energy management.
+                                        </p>
+                                    </div>
+                                    <div class="ev-spec-box">
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Range" data-lang-ms="Jarak">Range</span><span>430 km</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="70%"></div></div>
+                                        </div>
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Battery" data-lang-ms="Bateri">Battery</span><span>43 kWh LFP</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="60%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MODEL 2 -->
+                            <div class="ev-card">
+                                <div class="ev-image-frame">
+                                    <span class="ev-badge" data-lang-en="Versatile SUV" data-lang-ms="SUV Serbaguna">Versatile SUV</span>
+                                    <div class="ev-slides-container">
+                                        <div class="ev-slide active"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/vigo/exterior/VIGO-Cyber-Black.jpg" alt="Dongfeng Vigo EV 1"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/vigo/interior/VIGO-interior-front-view-GB.jpg" alt="Dongfeng Vigo EV 2"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/uploads/2025/11/vigo-hero.jpg" alt="Dongfeng Vigo EV 3"></div>
+                                    </div>
+                                    <div class="ev-dots">
+                                        <span class="ev-dot active" onclick="jumpToEvSlide(this, 0)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 1)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 2)"></span>
+                                    </div>
+                                    <div class="ev-image-overlay"></div>
+                                </div>
+                                <div class="ev-card-body">
+                                    <div>
+                                        <h4>Dongfeng Vigo EV</h4>
+                                        <p data-lang-en="A versatile and durable electric SUV engineered for lifestyle, family adventures, and everyday driving practicality."
+                                           data-lang-ms="Kenderaan utiliti sukan elektrik serbaguna dan tahan lama yang direka untuk gaya hidup, pengembaraan keluarga, dan kepraktisan pemanduan harian.">
+                                           A versatile and durable electric SUV engineered for lifestyle, family adventures, and everyday driving practicality.
+                                        </p>
+                                    </div>
+                                    <div class="ev-spec-box">
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Range" data-lang-ms="Jarak">Range</span><span>340 km</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="55%"></div></div>
+                                        </div>
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Battery" data-lang-ms="Bateri">Battery</span><span>51 kWh</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="75%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MODEL 3 -->
+                            <div class="ev-card">
+                                <div class="ev-image-frame">
+                                    <span class="ev-badge" data-lang-en="Performance Sedan" data-lang-ms="Sedan Prestasi">Performance Sedan</span>
+                                    <div class="ev-slides-container">
+                                        <div class="ev-slide active"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/007/exterior/007-Sun-Gold.jpg" alt="Dongfeng 007 EV 1"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/colour-configurator/007/interior/007-RWD-Interior-Grey-Black.jpg" alt="Dongfeng 007 EV 2"></div>
+                                        <div class="ev-slide"><img src="https://dongfeng.co.nz/wp-content/themes/DongfengTheme/images/007-fast-flexible-charging.jpg" alt="Dongfeng 007 EV 3"></div>
+                                    </div>
+                                    <div class="ev-dots">
+                                        <span class="ev-dot active" onclick="jumpToEvSlide(this, 0)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 1)"></span>
+                                        <span class="ev-dot" onclick="jumpToEvSlide(this, 2)"></span>
+                                    </div>
+                                    <div class="ev-image-overlay"></div>
+                                </div>
+                                <div class="ev-card-body">
+                                    <div>
+                                        <h4>Dongfeng 007 EV</h4>
+                                        <p data-lang-en="A premium fastback electric sedan combining luxury design, ultra-fast charging, and flagship intelligent systems."
+                                           data-lang-ms="Sedan elektrik premium bertaraf teratas yang menggabungkan reka bentuk mewah, pengecasan pantas, dan sistem pintar.">
+                                           A premium fastback electric sedan combining luxury design, ultra-fast charging, and flagship intelligent systems.
+                                        </p>
+                                    </div>
+                                    <div class="ev-spec-box">
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Range" data-lang-ms="Jarak">Range</span><span>520 km</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="90%"></div></div>
+                                        </div>
+                                        <div class="spec-row">
+                                            <div class="spec-info"><span data-lang-en="Battery" data-lang-ms="Bateri">Battery</span><span>70 kWh</span></div>
+                                            <div class="meter-bar"><div class="meter-fill" data-progress="85%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a class="corp-bottom-link" onclick="switchCorpTab('overview')" data-lang-en="<span class='anim-arrow-left'>←</span> Back to Corporate Overview" data-lang-ms="<span class='anim-arrow-left'>←</span> Kembali ke Gambaran Korporat"><span class="anim-arrow-left">←</span> Back to Corporate Overview</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: WEEKLY LOGBOOK SECTION -->
+    <section id="ledger" class="page-section">
+        <canvas id="ledgerCanvas" class="ledger-canvas-bg"></canvas>
+
+        <div class="ledger-hero-frame">
+            <div class="section-header">
+                <p data-lang-en="Official Industrial Training Records" data-lang-ms="Rekod Latihan Industri Rasmi">Official Industrial Training Records</p>
+                <h2 data-lang-en="Weekly Logbook" data-lang-ms="Buku Log Mingguan">Weekly Logbook</h2>
+            </div>
+
+            <div class="luxury-card" style="text-align: center;">
+                <p style="font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px;" data-lang-en="Access Complete Publication" data-lang-ms="Akses Penerbitan Lengkap">Access Complete Publication</p>
+                
+                <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text-silver); margin-top: 0; margin-bottom: 14px;" data-lang-en="Explore All Weekly Log Entries" data-lang-ms="Terokai Semua Catatan Log Mingguan">Explore All Weekly Log Entries</h3>
+                
+                <p style="color: var(--text-muted); font-size: 0.86rem; line-height: 1.55; max-width: 580px; margin: 0 auto 28px auto;" data-lang-en="Review the comprehensive documentation of tasks, system verifications, ERP operational workflows, and weekly summaries throughout the 6-month placement." data-lang-ms="Semak dokumentasi komprehensif tugasan, pengesahan sistem, aliran kerja operasi ERP, dan ringkasan mingguan sepanjang 6 bulan penempatan.">
+                    Review the comprehensive documentation of tasks, system verifications, ERP operational workflows, and weekly summaries throughout the 6-month placement.
+                </p>
+
+                <!-- Replace 'YOUR_FLIPBOOK_LINK_HERE' with your real Canva or FlipHTML5 link -->
+                <a href="https://anyflip.com/wlwqw/yxgm/" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;" data-lang-en="Open Flipbook <span>↗</span>" data-lang-ms="Buka Buku Log Mingguan <span>↗</span>">
+                    Open Flipbook <span>↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- Grainy Dark Aura Live Wallpaper Engine for Profile Section ---
+        (function initProfileCanvas() {
+            const canvas = document.getElementById('profileCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+
+            function resize() {
+                const parent = canvas.parentElement;
+                width = canvas.width = parent.clientWidth * window.devicePixelRatio;
+                height = canvas.height = parent.clientHeight * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let time = 0;
+
+            function animate() {
+                time += 0.002; 
+
+                const parentW = canvas.parentElement.clientWidth;
+                const parentH = canvas.parentElement.clientHeight;
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                ctx.save();
+
+                let blobX = parentW * 0.28 + Math.sin(time * 0.8) * (parentW * 0.05);
+                let blobY = parentH * 0.5 + Math.cos(time * 0.6) * (parentH * 0.05);
+                
+                let blobGrad = ctx.createRadialGradient(blobX, blobY, 10, blobX, blobY, parentW * 0.5);
+                blobGrad.addColorStop(0, 'rgba(15, 15, 15, 0.85)');
+                blobGrad.addColorStop(0.35, 'rgba(60, 60, 60, 0.5)');
+                blobGrad.addColorStop(0.7, 'rgba(150, 150, 150, 0.15)');
+                blobGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+                ctx.fillStyle = blobGrad;
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                const imgData = ctx.getImageData(0, 0, parentW, parentH);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 16) {
+                    let noise = (Math.random() - 0.5) * 18;
+                    data[i] = Math.min(255, Math.max(0, data[i] + noise));
+                    data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+                    data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
+                }
+                ctx.putImageData(imgData, 0, 0);
+
+                ctx.restore();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+
+        // --- Grainy Dark Aura Live Wallpaper Engine for Corporate Section ---
+        (function initCorporateCanvas() {
+            const canvas = document.getElementById('corporateCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+
+            function resize() {
+                const parent = canvas.parentElement;
+                width = canvas.width = parent.clientWidth * window.devicePixelRatio;
+                height = canvas.height = parent.clientHeight * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let time = 0;
+
+            function animate() {
+                time += 0.002; 
+
+                const parentW = canvas.parentElement.clientWidth;
+                const parentH = canvas.parentElement.clientHeight;
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                ctx.save();
+
+                let blobX = parentW * 0.72 + Math.sin(time * 0.8) * (parentW * 0.05);
+                let blobY = parentH * 0.5 + Math.cos(time * 0.6) * (parentH * 0.05);
+                
+                let blobGrad = ctx.createRadialGradient(blobX, blobY, 10, blobX, blobY, parentW * 0.5);
+                blobGrad.addColorStop(0, 'rgba(15, 15, 15, 0.85)');
+                blobGrad.addColorStop(0.35, 'rgba(60, 60, 60, 0.5)');
+                blobGrad.addColorStop(0.7, 'rgba(150, 150, 150, 0.15)');
+                blobGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+                ctx.fillStyle = blobGrad;
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                const imgData = ctx.getImageData(0, 0, parentW, parentH);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 16) {
+                    let noise = (Math.random() - 0.5) * 18;
+                    data[i] = Math.min(255, Math.max(0, data[i] + noise));
+                    data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+                    data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
+                }
+                ctx.putImageData(imgData, 0, 0);
+
+                ctx.restore();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+
+        // --- Grainy Dark Aura Live Wallpaper Engine for Weekly Logbook Section ---
+        (function initLedgerCanvas() {
+            const canvas = document.getElementById('ledgerCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+
+            function resize() {
+                const parent = canvas.parentElement;
+                width = canvas.width = parent.clientWidth * window.devicePixelRatio;
+                height = canvas.height = parent.clientHeight * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let time = 0;
+
+            function animate() {
+                time += 0.002; 
+
+                const parentW = canvas.parentElement.clientWidth;
+                const parentH = canvas.parentElement.clientHeight;
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                ctx.save();
+
+                let blobX = parentW * 0.35 + Math.sin(time * 0.7) * (parentW * 0.05);
+                let blobY = parentH * 0.5 + Math.cos(time * 0.5) * (parentH * 0.05);
+                
+                let blobGrad = ctx.createRadialGradient(blobX, blobY, 10, blobX, blobY, parentW * 0.5);
+                blobGrad.addColorStop(0, 'rgba(15, 15, 15, 0.85)');
+                blobGrad.addColorStop(0.35, 'rgba(60, 60, 60, 0.5)');
+                blobGrad.addColorStop(0.7, 'rgba(150, 150, 150, 0.15)');
+                blobGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+                ctx.fillStyle = blobGrad;
+                ctx.fillRect(0, 0, parentW, parentH);
+
+                const imgData = ctx.getImageData(0, 0, parentW, parentH);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 16) {
+                    let noise = (Math.random() - 0.5) * 18;
+                    data[i] = Math.min(255, Math.max(0, data[i] + noise));
+                    data[i+1] = Math.min(255, Math.max(0, data[i+1] + noise));
+                    data[i+2] = Math.min(255, Math.max(0, data[i+2] + noise));
+                }
+                ctx.putImageData(imgData, 0, 0);
+
+                ctx.restore();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+
+        // --- Clickable EV Dot Navigation & Auto-Play Engine ---
+        function startEvAutoPlay(card) {
+            const slides = card.querySelectorAll('.ev-slide');
+            const dots = card.querySelectorAll('.ev-dot');
+            if (slides.length <= 1) return;
+
+            let timerId = setInterval(() => {
+                let currentIdx = parseInt(card.dataset.currentIndex || '0');
+                slides[currentIdx].classList.remove('active');
+                if (dots[currentIdx]) dots[currentIdx].classList.remove('active');
+
+                currentIdx = (currentIdx + 1) % slides.length;
+                card.dataset.currentIndex = currentIdx;
+
+                slides[currentIdx].classList.add('active');
+                if (dots[currentIdx]) dots[currentIdx].classList.add('active');
+            }, 4200);
+
+            card.dataset.timerId = timerId;
+        }
+
+        window.jumpToEvSlide = function(dotElement, targetIndex) {
+            const card = dotElement.closest('.ev-card');
+            if (!card) return;
+
+            const slides = card.querySelectorAll('.ev-slide');
+            const dots = card.querySelectorAll('.ev-dot');
+
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+
+            if (slides[targetIndex]) slides[targetIndex].classList.add('active');
+            if (dots[targetIndex]) dots[targetIndex].classList.add('active');
+
+            card.dataset.currentIndex = targetIndex;
+
+            if (card.dataset.timerId) {
+                clearInterval(Number(card.dataset.timerId));
+            }
+            startEvAutoPlay(card);
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const evCards = document.querySelectorAll('.ev-card');
+            evCards.forEach(card => {
+                card.dataset.currentIndex = '0';
+                startEvAutoPlay(card);
+            });
+
+            const sections = Array.from(document.querySelectorAll(".page-section"));
+            let currentSectionIndex = 0;
+            let isAnimating = false;
+
+            function scrollToSection(index) {
+                if (index < 0 || index >= sections.length) return;
+                isAnimating = true;
+                currentSectionIndex = index;
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => { isAnimating = false; }, 800);
+            }
+
+            window.addEventListener("wheel", (e) => {
+                e.preventDefault();
+                if (isAnimating) return;
+
+                if (e.deltaY > 30) {
+                    scrollToSection(currentSectionIndex + 1);
+                } else if (e.deltaY < -30) {
+                    scrollToSection(currentSectionIndex - 1);
+                }
+            }, { passive: false });
+
+            const observerOptions = { root: null, threshold: 0.5 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = sections.indexOf(entry.target);
+                        if (index !== -1 && !isAnimating) {
+                            currentSectionIndex = index;
+                        }
+                        entry.target.classList.add("active-slide");
+                        const currentId = entry.target.getAttribute("id");
+                        document.querySelectorAll("nav a").forEach(link => {
+                            link.classList.remove("active");
+                            if (link.getAttribute("href") === `#${currentId}`) {
+                                link.classList.add("active");
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+
+            window.switchCorpTab = function(tabName) {
+                const contents = document.querySelectorAll('.corp-tab-content');
+                contents.forEach(content => content.classList.remove('active-content'));
+
+                if (tabName === 'overview') {
+                    document.getElementById('tab-overview').classList.add('active-content');
+                    document.querySelectorAll('.meter-fill').forEach(bar => bar.style.width = '0%');
+                } else if (tabName === 'ev-lineup') {
+                    document.getElementById('tab-ev-lineup').classList.add('active-content');
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.meter-fill').forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-progress');
+                        });
+                    }, 100);
+                }
+            };
+
+            let currentLang = 'en';
+            const langBtn = document.getElementById("langSwitch");
+            if(langBtn) {
+                langBtn.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    currentLang = currentLang === 'en' ? 'ms' : 'en';
+                    langSwitch.textContent = currentLang === 'en' ? 'EN' : 'BM';
+                    document.documentElement.lang = currentLang;
+
+                    const targetAttribute = `data-lang-${currentLang}`;
+                    document.querySelectorAll(`[${targetAttribute}]`).forEach(element => {
+                        const updatedContent = element.getAttribute(targetAttribute);
+                        if (updatedContent !== null) {
+                            if (element.tagName === 'INPUT') {
+                                element.placeholder = updatedContent;
+                            } else {
+                                element.innerHTML = updatedContent;
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
